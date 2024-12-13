@@ -1,0 +1,73 @@
+﻿@page
+@using FinalAssignment.Models
+@model FinalAssignment.Pages.StudentModel
+@{
+    <!-- Main heading -->
+    <h1>Student Information</h1>
+
+    <!-- Form to submit student information -->
+    <form method="post" class="mb-4 flex justify-center">
+        <!-- Container for form fields -->
+        <div class="form-row">
+
+            <!-- Group for Student ID input -->
+            <div class="form-group col-md-3">
+                <label for="studentId">Student ID</label>
+                <input type="text" class="form-control" id="studentId" name="studentId" value="@Model.StudentId" />
+                <span asp-validation-for="StudentId" class="text-danger"></span>
+            </div>
+
+            <!-- Group for Name input -->
+            <div class="form-group col-md-3">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="@Model.Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Group for Program Name input -->
+            <div class="form-group col-md-3">
+                <label for="programName">Program Name</label>
+                <input type="text" class="form-control" id="programName" name="programName" value="@Model.ProgramName" />
+                <span asp-validation-for="ProgramName" class="text-danger"></span>
+            </div>
+
+            <!-- Group for Duration input -->
+            <div class="form-group col-md-3">
+                <label for="duration">Duration (Years)</label>
+                <input type="number" class="form-control" id="duration" name="duration" value="@Model.Duration" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+        </div>
+        <!-- Submit button to add a student -->
+        <button type="submit" class="btn btn-primary mt-3">Add</button>
+    </form>
+
+    <!-- Table to display the list of students -->
+    <table class="table w-full">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Program Name</th>
+                <th>Duration (Years)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <!-- Table row for each student -->
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.ProgramName</td>
+                    <td>@student.Duration</td>
+                    <td>
+                        <a asp-page-handler="Edit" asp-route-id="@student.Id" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@student.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
